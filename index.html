@@ -3,224 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>store panel by nauval</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <title>Website Maintenance</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
+            background: url('https://pomf2.lain.la/f/0b8900jg.webp') no-repeat center center fixed; /* Ganti dengan URL gambar background maintenance */
+            background-size: cover;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-start;
-            transition: background 2s ease;
-        }
-        .header {
-            text-align: center;
             color: white;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
             margin-bottom: 30px;
         }
-        .header h1 {
-            font-size: 2.5rem;
-        }
-        .header p {
-            font-size: 1.2rem;
-        }
-        .product-container {
-            width: 90%;
-            max-width: 600px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        .product-container h2 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .product {
-            background: #f8f9fa;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .product h3 {
-            color: #444;
-            margin: 0;
-        }
-        .product .price {
-            font-size: 1rem;
-            color: #555;
-        }
-        .product button {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease;
-        }
-        .product button:hover {
-            background-color: #388e3c;
-        }
-        .qr-container {
-            text-align: center;
-            margin-top: 20px;
-            display: none;
-        }
-        #qrcode {
-            margin-top: 20px;
-        }
-        .qr-container button {
-            margin-top: 15px;
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
-        .qr-container button:hover {
-            background-color: #0056b3;
-        }
-        .whatsapp {
-            margin-top: 20px;
-            background-color: #25D366;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
+
+        a {
+            color: #FFD700;
             text-decoration: none;
-            display: inline-block;
+            font-weight: bold;
+            font-size: 20px;
         }
-        .whatsapp:hover {
-            background-color: #1ebc5a;
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>website official 
-        pembelian panel by nov</h1>
-        <p> spek panel
-            ram 24 gb 4 core 
-            Intel xeon gold (2,10)
-            Pilih produk, beli , scroll ke bawah , unduh qris ,bayar, dan konfirmasi pembayaran melalui WhatsApp, send data panel done</p>
-    </div>
-
-   <!-- Panel Biasa -->
-    <div class="product-container">
-        <h2>Panel Biasa</h2>
-        <div class="product"><h3>1 GB</h3><p class="price">Rp 1.000</p><button onclick="processPayment('Panel Biasa', '1 GB', 1000)">Bayar</button></div>
-        <div class="product"><h3>2 GB</h3><p class="price">Rp 2.000</p><button onclick="processPayment('Panel Biasa', '2 GB', 2000)">Bayar</button></div>
-        <div class="product"><h3>3 GB</h3><p class="price">Rp 3.000</p><button onclick="processPayment('Panel Biasa', '2 GB', 3000)">Bayar</button></div>
-         <div class="product"><h3>4 GB</h3><p class="price">Rp 4.000</p><button onclick="processPayment('Panel Biasa', '2 GB', 4000)">Bayar</button></div>
-         <div class="product"><h3>5 GB</h3><p class="price">Rp 5.000</p><button onclick="processPayment('Panel Biasa', '2 GB', 5000)">Bayar</button></div>
-         <div class="product"><h3>6 GB</h3><p class="price">Rp 6.000</p><button onclick="processPayment('Panel Biasa', '2 GB', 6000)">Bayar</button></div>
-         <div class="product"><h3>8 GB</h3><p class="price">Rp 7.000</p><button onclick="processPayment('Panel Biasa', '2 GB', 7000)">Bayar</button></div>
-        <div class="product"><h3>Unlimited</h3><p class="price">Rp 8.500</p><button onclick="processPayment('Panel Biasa', 'Unlimited', 8500)">Bayar</button></div>
-    </div>
-
-    <!-- Panel PM2 -->
-    <div class="product-container">
-        <h2>Panel PM2</h2>
-        <div class="product"><h3>2 GB</h3><p class="price">Rp 2.500</p><button onclick="processPayment('PM2', '2 GB', 2500)">Bayar</button></div>
-        <div class="product"><h3>4 GB</h3><p class="price">Rp 4.500</p><button onclick="processPayment('PM2', '4 GB', 4500)">Bayar</button></div>
-        <div class="product"><h3>6 GB</h3><p class="price">Rp 6.500</p><button onclick="processPayment('PM2', '6 GB', 6500)">Bayar</button></div>
-        <div class="product"><h3>8 GB</h3><p class="price">Rp 8.500</p><button onclick="processPayment('PM2', '8 GB', 8500)">Bayar</button></div>
-        <div class="product"><h3>Unlimited</h3><p class="price">Rp 10.000</p><button onclick="processPayment('PM2', 'Unlimited', 10000)">Bayar</button></div>
-    </div>
-    <!-- Egg Python -->
-    <div class="product-container">
-        <h2>Egg Python</h2>
-        <div class="product"><h3>2 GB</h3><p class="price">Rp. 2.500</p><button onclick="processPayment('Egg Python', '2 GB', 2500)">Bayar</button></div>
-        <div class="product"><h3>4 GB</h3><p class="price">Rp. 4.500</p><button onclick="processPayment('Egg Python', '4 GB', 4500)">Bayar</button></div>
-        <div class="product"><h3>6 GB</h3><p class="price">Rp. 6.500</p><button onclick="processPayment('Egg Python', '4 GB', 6500)">Bayar</button></div>
-        <div class="product"><h3>Unlimited</h3><p class="price">Rp. 10.000</p><button onclick="processPayment('Egg Python', 'Unlimited', 10000)">Bayar</button></div>
-    </div>
-
-    <!-- Egg Minecraft -->
-    <div class="product-container">
-        <h2>Egg Minecraft</h2>
-        <div class="product"><h3>2 GB</h3><p class="price">Rp. 3.000</p><button onclick="processPayment('Egg Minecraft', '2 GB', 3000)">Bayar</button></div>
-        <div class="product"><h3>4 GB</h3><p class="price">Rp. 5.000</p><button onclick="processPayment('Egg Minecraft', '4 GB', 5000)">Bayar</button></div>
-        <div class="product"><h3>6 GB</h3><p class="price">Rp. 7.000</p><button onclick="processPayment('Egg Minecraft', '6 GB', 7000)">Bayar</button></div>
-        <div class="product"><h3>8 GB</h3><p class="price">Rp. 9.000</p><button onclick="processPayment('Egg Minecraft', '8 GB', 9000)">Bayar</button></div>
-        <div class="product"><h3>Unlimited</h3><p class="price">Rp. 11.000</p><button onclick="processPayment('Egg Minecraft', 'Unlimited', 11000)">Bayar</button></div>
-    </div>
-
-    <!-- QR Code Section -->
-    <div class="qr-container" id="qr-container">
-        <h2>QR Code Pembayaran</h2>
-        <canvas id="qrcode"></canvas>
-        <button onclick="downloadQRCode()">Download QR Code</button>
-        <a id="whatsapp" class="whatsapp" href="#" target="_blank">Konfirmasi Pembayaran via WhatsApp</a>
+    <div class="container">
+        <h1>We Are Under Maintenance</h1>
+        <p>Sorry, our website is currently undergoing maintenance. We will be back shortly.</p>
+        <p>If you need assistance, please visit our <a href="https://store.fdteam.my.id" target="_blank">store</a>.</p>
     </div>
 
     <script>
-        const colors = [
-            'linear-gradient(to right, #6a11cb, #2575fc)',
-            'linear-gradient(to right, #1f4037, #99f2c8)',
-            'linear-gradient(to right, #ff5f6d, #ffc371)',
-            'linear-gradient(to right, #00c6ff, #0072ff)',
-            'linear-gradient(to right, #a18cd1, #fbc2eb)'
-        ];
-        let colorIndex = 0;
-
-        function changeBackgroundColor() {
-            document.body.style.background = colors[colorIndex];
-            colorIndex = (colorIndex + 1) % colors.length;
-        }
-
-        setInterval(changeBackgroundColor, 5000); // Ubah warna setiap 5 detik
-
-        function generateQR(data) {
-            const qrCodeCanvas = document.getElementById('qrcode');
-            QRCode.toCanvas(qrCodeCanvas, data, {
-                width: 256,
-                colorDark: "#000000",
-                colorLight: "#ffffff"
-            }, function (error) {
-                if (error) {
-                    console.error('QR Code Error:', error);
-                } else {
-                    console.log('QR Code successfully generated!');
-                }
-            });
-        }
-
-        function processPayment(product, size, price) {
-            const qrisData = '00020101021126610014COM.GO-JEK.WWW01189360091436808175840210G6808175840303UMI51440014ID.CO.QRIS.WWW0215ID10243264522560303UMI5204729953033605802ID5905noval6005BLORA61055838162070703A016304334C';
-            const paymentData = qrisData.slice(0, -4) + `54${String(price).length}${price}` + qrisData.slice(-4);
-            generateQR(paymentData);
-
-            const whatsappLink = `https://wa.me/6285336580720?text=Halo,%20saya%20ingin%20konfirmasi%20pembayaran%20untuk%20produk:%0AProduk:%20${product}%0ASize:%20${size}%0AHarga:%20Rp%20${price}`;
-            document.getElementById('whatsapp').href = whatsappLink;
-
-            // Tampilkan kontainer QR
-            document.getElementById('qr-container').style.display = 'block';
-        }
-
-        function downloadQRCode() {
-            const qrCodeCanvas = document.getElementById('qrcode');
-            const link = document.createElement('a');
-            link.download = 'qr_code.png';
-            link.href = qrCodeCanvas.toDataURL();
-            link.click();
-        }
+        // Redirect after 5 seconds
+        setTimeout(function() {
+            window.location.href = "https://store.fdteam.my.id";
+        }, 5000);
     </script>
 </body>
 </html>
