@@ -48,7 +48,7 @@
             flex-direction: column; /* Change to column to stack categories */
             width: 90%;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px; /* Ensure spacing between sections */
@@ -232,6 +232,293 @@
         function convertCRC16(str) {
             let crc = 0xFFFF;
             for (let i = 0; i < str.length; i++) {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>website official panel fdteam</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+      
+        /* General styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #d9f0e4, #f2f7e4);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Main container styling */
+        .container {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        /* Header image */
+        .header-image {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 20px;
+            display: block;
+            border-radius: 20px;
+        }
+
+        /* Product card styling */
+        .product {
+            background: #48D1CC;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.2s ease;
+            margin: 10px;
+        }
+
+        .product:hover {
+            transform: scale(1.03);
+            background-color: #e3f9eb;
+        }
+
+        /* Sub-product grid */
+        .sub-products {
+            display: grid;
+            gap: 15px;
+        }
+
+        .sub-product {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.2s ease;
+            box-shadow 0.3s ease;
+            margin: 10px;
+        }
+
+        .sub-product:hover {
+            transform: scale(1.05);
+            box-shadow: 1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Typography */
+        h2, h3 {
+            color: #388e3c;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #4caf50;
+            margin: 10px 0;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #66bb6a;
+            color: #ffffff;
+            padding: 10px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4caf50;
+        }
+
+        /* Modal Popup styling */
+        #modal-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Payment container */
+        #payment-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .sub-products {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+        .h2s {
+          display: flex;
+          justify-content: space-between;
+        }
+        input {
+          border-radius: 15px;
+          padding: 10px;
+          width: 90%;
+          margin: 5px;
+          outline: none;
+          border: 2px solid black;
+        }
+        input:hover {
+          border: 2px solid green;
+        }
+        .hidden {
+          visibility: none;
+        }
+        .show {
+          visibility: visible;
+        }
+        #qrcodes {
+    display: flex;
+    flex-direction: column; /* Mengatur elemen dalam kolom */
+    align-items: center; /* Memusatkan elemen secara horizontal */
+    text-align: center; /* Memusatkan teks dalam elemen */
+    margin: 0px !important; /* Menambahkan margin sekitar kontainer */
+}
+    
+    </style>
+</head>
+<body>
+      <!-- Modal Popup -->
+    <div id="modal-popup">
+        <div style="background: white; border-radius: 16px; padding: 20px; width: 80%; max-width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            <h2>Pembayaran</h2>
+            <center><label for="amount">Harga:</label>
+            <input onclick="alert('Tidak dapat diubah')" type="number" id="amount" placeholder="Masukkan nominal" min="1000" readonly><br>
+            <label for="product">Produk:</label>
+            <input onclick="alert('Tidak dapat diubah')" type="text" id="product" readonly></center>
+            <div id="error-message" style="color: red; margin-top: 10px;"></div>
+            <button onclick="generateQR()">Generate QR</button>
+<div id="qrcodes">
+    <h3>Kode QR:</h3>
+    <center>
+        <canvas id="qrcode"></canvas>
+    </center>
+    <p id="qr-instruction">Scan QR untuk melakukan pembayaran.</p>
+</div>
+            <button id="download-btn" style="margin-top: 10px;" onclick="downloadQR()">Download QR Code</button>
+            <button id="confirm-btn" style="margin-top: 10px;" onclick="confirmPayment()">Konfirmasi Pembayaran</button>
+            <button onclick="closeModal()" style="margin-top: 10px; background-color: #f44336;">Tutup</button>
+        </div>
+    </div>
+    <div class="container">
+        <img src="https://pomf2.lain.la/f/tmmm56jq.png" alt="Panel FDTeam" class="header-image">
+        <div style='display: none;' id="product-title" class="product-container"></div>
+        <!-- Product container -->
+        <div class="sub-product">PANEL BY NOV</div>
+        <br style='padding:0px;margin:0px;'>
+        <div class="sub-product">
+            <div class="h2s"><span>VPS </span><span>SPECIFICATION</span></div><br>
+           <div class="h2s"><span>RAM :</span> <span>32 GB</span></div>
+            <div class="h2s"><span>CPU :</span><span>Intel Xeon Gold 6230</span></div>
+            <div class="h2s"><span>CORE :</span><span>6</span></div>
+            <br>
+        </div>
+        <div id="product-container"></div>
+    </div>
+
+    <script>
+        const list = {
+            "title": "",
+            "speck": {
+                "ram": "",
+                "cpu": "",
+                "cores": 6
+            },
+            "pricing": {
+                "panel_biasa": {
+                    "biasa 1 GB": 1500,
+                    "biasa 2 GB": 2500,
+                    "biasa 3 GB": 4000,
+                    "biasa 4 GB": 5000,
+                    "biasa 5 GB": 7000,
+                    "biasa 6 GB": 8500,
+                    "biasa 7 GB": 10000,
+                    "biasa 8 GB": 11500,
+                    "biasa Unlimited": 13000
+                },
+                "pm2": {
+                    "pm2 2 GB": 3500,
+                    "pm2 3 GB": 5500,
+                    "pm2 4 GB": 7000,
+                    "pm2 6 GB": 9000,
+                    "pm2 8 GB": 11500,
+                    "pm2 Unlimited": 14000
+                },
+                "egg_python": {
+                    "py 2 GB": 3500,
+                    "py 4 GB": 5500,
+                    "py 6 GB": 8000,
+                    "py 8 GB": 10000,
+                    "py Unlimited": 12500
+                },
+                "egg_minecraft": {
+                    "mine 2 GB": 4000,
+                    "mine 4 GB": 7000,
+                    "mine 6 GB": 9500,
+                    "mine 8 GB": 11500,
+                    "mine Unlimited": 14000
+                }
+            }
+        }
+
+         function redirectToPayment(amount, product) {
+           document.getElementById('qrcodes').style.display = 'none';
+    // Tampilkan modal popup
+    const modal = document.getElementById('modal-popup');
+    modal.style.display = 'flex';
+
+    // Isi data pembayaran
+    document.getElementById('amount').value = amount;
+    document.getElementById('product').value = product;
+}
+
+function closeModal() {
+    // Tutup modal popup
+    document.getElementById('qrcodes').style.display = 'none';
+    document.getElementById('modal-popup').style.display = 'none';
+    resetModal(); // Reset modal fields when closing
+}
+
+function resetModal() {
+    // Reset the input fields and error message
+    document.getElementById('amount').value = '';
+    document.getElementById('product').value = '';
+    document.getElementById('error-message').textContent = '';
+
+    // Clear the QR code canvas
+    document.getElementById('qrcodes').style.display = 'none';
+    const canvas = document.getElementById('qrcode');
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+}
+        function convertCRC16(str) {
+            let crc = 0xFFFF;
+            for (let i = 0; i < str.length; i++) {
                 crc ^= str.charCodeAt(i) << 8;
                 for (let j = 0; j < 8; j++) {
                     if ((crc & 0x8000) !== 0) {
@@ -253,6 +540,7 @@
             return completeData;
         }
         function generateQR() {
+          document.getElementById('qrcodes').style.display = 'flex';
             const amount = document.getElementById('amount').value;
             const produk = document.getElementById('product').value;
             const errorMessage = document.getElementById('error-message');
