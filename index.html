@@ -3,375 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>website official panel fdteam</title>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <title>FDTEAM Loading</title>
     <style>
-      
-        /* General styling */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to right, #d9f0e4, #f2f7e4);
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        /* Reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Main container styling */
-        .container {
-            width: 100%;
-            height: 100%;
-            background: #191970;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: black;
+            color: white;
         }
 
-        /* Header image */
-        .header-image {
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto 20px;
-            display: block;
-            border-radius: 20px;
-        }
-
-        /* Product card styling */
-        .product {
-            background: #00FF7F;
-            border: 1px solid #ddd;
-            border-radius: 16px;
-            padding: 10px;
-            text-align: center;
-            transition: transform 0.2s ease;
-            margin: 10px;
-        }
-
-        .product:hover {
-            transform: scale(1.03);
-            background-color: #e3f9eb;
-        }
-
-        /* Sub-product grid */
-        .sub-products {
-            display: grid;
-            gap: 15px;
-        }
-
-        .sub-product {
-            background: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 16px;
-            padding: 10px;
-            text-align: center;
-            transition: transform 0.2s ease;
-            box-shadow 0.3s ease;
-            margin: 10px;
-        }
-
-        .sub-product:hover {
-            transform: scale(1.05);
-            box-shadow: 1px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Typography */
-        h2, h3 {
-            color: #388e3c;
-            margin-bottom: 10px;
-        }
-
-        .price {
-            font-size: 18px;
-            color: #4caf50;
-            margin: 10px 0;
-        }
-
-        /* Buttons */
-        button {
-            background-color: #66bb6a;
-            color: #ffffff;
-            padding: 10px 20px;
-            width: 100%;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #00FFFF;
-        }
-
-        /* Modal Popup styling */
-        #modal-popup {
-            display: none;
+        /* Background with gradient */
+        .background {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            animation: gradient 10s infinite;
+            z-index: -2;
         }
 
-        /* Payment container */
-        #payment-container {
-            display: none;
+        @keyframes gradient {
+            0% { background: #ff7eb3; }
+            25% { background: #ff6a6a; }
+            50% { background: #ffcc63; }
+            75% { background: #78e4d6; }
+            100% { background: #ff7eb3; }
+        }
+
+        /* Loader Section */
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            animation: fadeOut 1s ease 3s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .bubbles {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+
+        .bubbles span {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            animation: bubble 2s infinite;
+        }
+
+        .bubbles span:nth-child(1) { top: 0; left: 50%; animation-delay: 0s; }
+        .bubbles span:nth-child(2) { top: 20%; left: 70%; animation-delay: 0.5s; }
+        .bubbles span:nth-child(3) { top: 50%; left: 90%; animation-delay: 1s; }
+        .bubbles span:nth-child(4) { top: 80%; left: 30%; animation-delay: 1.5s; }
+        .bubbles span:nth-child(5) { top: 60%; left: 10%; animation-delay: 2s; }
+
+        @keyframes bubble {
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            100% { transform: scale(0.5) translateY(-100px); opacity: 0; }
+        }
+
+        /* Main Content */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            animation: fadeIn 1s ease 3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        .main-text {
+            font-size: 2rem;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .info-text {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
+        .custom-image {
+            width: 200px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Button */
+        .support-button {
+            display: inline-block;
             margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #28a745;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 5px #1c7430;
+            transition: 0.3s ease;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .sub-products {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            }
+        .support-button:hover {
+            background-color: #218838;
+        }
 
-            button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
+        .support-button:active {
+            box-shadow: 0 2px #1c7430;
+            transform: translateY(3px);
         }
-        .h2s {
-          display: flex;
-          justify-content: space-between;
-        }
-        input {
-          border-radius: 15px;
-          padding: 10px;
-          width: 90%;
-          margin: 5px;
-          outline: none;
-          border: 2px solid black;
-        }
-        input:hover {
-          border: 2px solid green;
-        }
-        .hidden {
-          visibility: none;
-        }
-        .show {
-          visibility: visible;
-        }
-        #qrcodes {
-    display: flex;
-    flex-direction: column; /* Mengatur elemen dalam kolom */
-    align-items: center; /* Memusatkan elemen secara horizontal */
-    text-align: center; /* Memusatkan teks dalam elemen */
-    margin: 0px !important; /* Menambahkan margin sekitar kontainer */
-}
-    
     </style>
 </head>
 <body>
-      <!-- Modal Popup -->
-    <div id="modal-popup">
-        <div style="background: white; border-radius: 16px; padding: 20px; width: 80%; max-width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-            <h2>Pembayaran</h2>
-            <center><label for="amount">Harga:</label>
-            <input onclick="alert('Tidak dapat diubah')" type="number" id="amount" placeholder="Masukkan nominal" min="1000" readonly><br>
-            <label for="product">Produk:</label>
-            <input onclick="alert('Tidak dapat diubah')" type="text" id="product" readonly></center>
-            <div id="error-message" style="color: red; margin-top: 10px;"></div>
-            <button onclick="generateQR()">Generate QR</button>
-<div id="qrcodes">
-    <h3>Kode QR:</h3>
-    <center>
-        <canvas id="qrcode"></canvas>
-    </center>
-    <p id="qr-instruction">Scan QR untuk melakukan pembayaran.</p>
-</div>
-            <button id="download-btn" style="margin-top: 10px;" onclick="downloadQR()">Download QR Code</button>
-            <button id="confirm-btn" style="margin-top: 10px;" onclick="confirmPayment()">Konfirmasi Pembayaran</button>
-            <button onclick="closeModal()" style="margin-top: 10px; background-color: #f44336;">Tutup</button>
+    <div class="background"></div>
+
+    <!-- Loader -->
+    <div class="loader">
+        <div class="bubbles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </div>
-    <div class="container">
-        <img src="https://pomf2.lain.la/f/tmmm56jq.png" alt="Panel FDTeam" class="header-image">
-        <div style='display: none;' id="product-title" class="product-container"></div>
-        <!-- Product container -->
-        <div class="sub-product">OPEN PANEL </div>
-        <br style='padding:0px;margin:0px;'>
-        <div class="sub-product">
-            <div class="h2s"><span>VPS </span><span>SPECIFICATION</span></div><br>
-           <div class="h2s"><span>RAM :</span> <span>32 GB</span></div>
-            <div class="h2s"><span>CPU :</span><span>3,8 GHz</span></div>
-            <div class="h2s"><span>CORE :</span><span>16</span></div>
-            <div class="h2s"><span>Harga sudah termasuk PPN 12 %</span></div>
-            <br>
-        </div>
-        <div id="product-container"></div>
+        <p>Loading...</p>
     </div>
 
-    <script>
-        const list = {
-            "title": "",
-            "speck": {
-                "ram": "",
-                "cpu": "",
-                "cores": 6
-            },
-            "pricing": {
-                "panel_biasa": {
-                    "biasa 1 GB": 2500,
-                    "biasa 2 GB": 3500,
-                    "biasa 3 GB": 4500,
-                    "biasa 4 GB": 6000,
-                    "biasa 5 GB": 7000,
-                    "biasa 6 GB": 8500,
-                    "biasa 7 GB": 9500,
-                    "biasa 8 GB": 11000,
-                    "biasa Unlimited": 13000
-                },
-                "pm2": {
-                    "pm2 2 GB": 5000,
-                    "pm2 3 GB": 6000,
-                    "pm2 4 GB": 7500,
-                    "pm2 6 GB": 11000,
-                    "pm2 8 GB": 12500,
-                    "pm2 Unlimited": 14000
-                }
-                
-                
-            }
-        }
-
-         function redirectToPayment(amount, product) {
-           document.getElementById('qrcodes').style.display = 'none';
-    // Tampilkan modal popup
-    const modal = document.getElementById('modal-popup');
-    modal.style.display = 'flex';
-
-    // Isi data pembayaran
-    document.getElementById('amount').value = amount;
-    document.getElementById('product').value = product;
-}
-
-function closeModal() {
-    // Tutup modal popup
-    document.getElementById('qrcodes').style.display = 'none';
-    document.getElementById('modal-popup').style.display = 'none';
-    resetModal(); // Reset modal fields when closing
-}
-
-function resetModal() {
-    // Reset the input fields and error message
-    document.getElementById('amount').value = '';
-    document.getElementById('product').value = '';
-    document.getElementById('error-message').textContent = '';
-
-    // Clear the QR code canvas
-    document.getElementById('qrcodes').style.display = 'none';
-    const canvas = document.getElementById('qrcode');
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-}
-        function convertCRC16(str) {
-            let crc = 0xFFFF;
-            for (let i = 0; i < str.length; i++) {
-                crc ^= str.charCodeAt(i) << 8;
-                for (let j = 0; j < 8; j++) {
-                    if ((crc & 0x8000) !== 0) {
-                        crc = (crc << 1) ^ 0x1021;
-                    } else {
-                        crc <<= 1;
-                    }
-                }
-            }
-            crc &= 0xFFFF;
-            return crc.toString(16).toUpperCase().padStart(4, '0');
-        }
-        function p(qrisData, paymentAmount) {
-            qrisData = qrisData.slice(0, - 4);
-            const step1 = qrisData.replace("010211", "010212");
-            const step2 = step1.split("5802ID");
-            const uang = "54" + ("0" + paymentAmount.length).slice(-2) + paymentAmount;
-            const completeData = step2[0] + uang + step2[1] + convertCRC16(step2[0] + uang + step2[1]);
-            return completeData;
-        }
-        function generateQR() {
-          document.getElementById('qrcodes').style.display = 'flex';
-            const amount = document.getElementById('amount').value;
-            const produk = document.getElementById('product').value;
-            const errorMessage = document.getElementById('error-message');
-            const qrCodeCanvas = document.getElementById('qrcode');
-            errorMessage.textContent = "";
-            qrCodeCanvas.getContext('2d').clearRect(0, 0, qrCodeCanvas.width, qrCodeCanvas.height);
-
-            if (!amount || amount <= 0 || amount < 1000) {
-                errorMessage.textContent = 'Masukkan nominal yang valid (minimal Rp 1000).';
-                return;
-            }
-
-            const qrisData = '00020101021126610014COM.GO-JEK.WWW01189360091436808175840210G6808175840303UMI51440014ID.CO.QRIS.WWW0215ID10243264522560303UMI5204729953033605802ID5905noval6005BLORA61055838162070703A016304334C';
-            const qrCodeData = p(qrisData, amount);
-
-            QRCode.toCanvas(qrCodeCanvas, qrCodeData, {
-                width: 256,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
-            }, function(error) {
-                if (error) {
-                    console.error(error);
-                    errorMessage.textContent = 'Terjadi kesalahan saat membuat kode QR.';
-                } else {
-                    console.log('QR Code berhasil dibuat!');
-                    const qrInstruction = document.getElementById('qr-instruction');
-                    qrInstruction.textContent = 'Silahkan scan kode QR di atas untuk pembayaran melalui aplikasi dana, gopay, atau lainnya';
-
-                    const downloadBtn = document.getElementById('download-btn');
-                    downloadBtn.style.display = 'block';
-                    downloadBtn.addEventListener('click', function() {
-                        const link = document.createElement('a');
-                        link.download = 'qr_code.png';
-                        link.href = qrCodeCanvas.toDataURL();
-                        link.click();
-                    });
-
-                    const confirmBtn = document.getElementById('confirm-btn');
-                    confirmBtn.style.display = 'block';
-                    confirmBtn.addEventListener('click', function() {
-                        const waLink = `https://wa.me/6285336580720?text=Konfirmasi%20pembayaran%20${produk}%20dengan%20nominal%20Rp${amount}`;
-                        window.open(waLink, '_blank');
-                    });
-                }
-            });
-        }
-        function loadProducts(pricing) {
-            const productContainer = document.getElementById('product-container');
-            const title = document.getElementById('product-title');
-            title.innerHTML = `<h2 style="text-align: center;">${pricing.title}</h2>`;
-            for (const [category, items] of Object.entries(pricing.speck)) {
-                title.innerHTML += `<li>${category}: ${items}</li>`;
-            }
-            for (const [category, items] of Object.entries(pricing.pricing)) {
-                const productDiv = document.createElement('div');
-                productDiv.className = 'product';
-                productDiv.innerHTML = `<h2>${category}</h2><div class="sub-products"></div>`;
-                const subProductsDiv = productDiv.querySelector('.sub-products');
-
-                for (const [ram, price] of Object.entries(items)) {
-                    const subProductDiv = document.createElement('div');
-                    subProductDiv.className = 'sub-product';
-                    subProductDiv.innerHTML = `
-                        <h3>beli ${ram}</h3>
-                        <p class="price">Rp.${price}</p>
-                        <button onclick="redirectToPayment(${price}, '${ram}')">Beli</button>
-                    `;
-                    subProductsDiv.appendChild(subProductDiv);
-                }
-                productContainer.appendChild(productDiv);
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            loadProducts(list);
-        });
-    </script>
+    <!-- Main Content -->
+    <div class="content">
+        <img src="https://pomf2.lain.la/f/nz4itja.png" alt="FDTEAM" class="custom-image">
+        <p class="info-text">NOTIFIKASI FDTEAM Maaf kami close dulu ya order panelnya karena kami mengutamakan kualitas bukan kuantitas 
+         .</p>
+        <a href="https://wa.me/6285336580720" class="support-button">Support</a>
+    </div>
 </body>
 </html>
